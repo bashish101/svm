@@ -1,22 +1,11 @@
-import cv2
 import cvxopt
 import itertools
 import numpy as np
-
-import types
-import copyreg
 import multiprocessing as mp
 
+from sklearn import svm, datasets
+
 cvxopt.solvers.options['show_progress'] = False
-
-def _reduce_method(m):
-	if m.im_self is None:
-		return getattr, (m.im_class, m.im_func.func_name)
-	else:
-		return getattr, (m.im_self, m.im_func.func_name)
-
-copyreg.pickle(types.MethodType, _reduce_method)
-
 KERNELS = ['linear', 'poly', 'rbf']
 
 class SVMUnit(object):
